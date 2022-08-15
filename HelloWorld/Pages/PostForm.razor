@@ -25,6 +25,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         await GetSessionId();
+        await PostDocument();
     }
 
     public async Task GetSessionId()
@@ -61,6 +62,9 @@ else
 
     public async Task PostDocument()
     {
+        var client = new HttpClient();
+        client.DefaultRequestHeaders.Add("PxSessionId", session);
+
         var dokument = new DokumentErstellen("25", new Adresse("23"), "Herr", DateTime.Now.ToString("yyyy-MM-dd"), new Dokumenttyp("OF"), new ESRNummer("1"), false,
                        false, new Region("BE"), new Kondition("1"), 1.0, new Land("CH"), new Lieferadresse("25"), "Herr", new Lieferart("Post"), "hans.muster@proffix.net",
                        new LieferadressRegion("BE"), new LieferadressLand("CH"), "Muster", "Pieterlen", "2542", "Bielstrasse 30", "Hans", 80.2, "Stammkunde", "Zürich",
@@ -69,13 +73,20 @@ else
                        0.0, 0.0, 0.0, "Georgweg 22", 0.0, 0.0, 15.5, 15.5, 65.5, 0.0, 4.75, 4.75, 65.5, "Admin", new Vertreter("FV"), "Sandro", new List<string> { },
                        new List<string> { }, new Waehrung("CHF"), 0.0, 0.0, 0.0, 0.0, new Sprache("D"), new List<string>
                        {
-                           //Positionen
+                       //Positionen
                        }, DateTime.Now, "ADMIN", DateTime.Now, "ADMIN", new List<string>
                        {
-                           //Zusatzfelder
+                       //Zusatzfelder
                        });
-        var url = "http://localhost:5000/pxapi/v4/AUF/Dokument?freieLieferadresse=1";
-        var client = new HttpClient();
 
+        var json = JsonConvert.SerializeObject(dokument);
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+        var url = "http://localhost:5000/pxapi/v4/AUF/Dokument?freieLieferadresse=1";
+
+
+        HttpResponseMessage response = await client.PostAsync(url, data);
+        HttpHeaders headers = response.Headers;
+        Console.Write("");
     }
 }

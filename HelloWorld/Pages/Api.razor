@@ -1,0 +1,183 @@
+﻿@page "/api"
+@using System.Text;
+@using System.Text.Json
+@using System.Text.Json.Serialization;
+@using Newtonsoft.Json;
+@using System.Net.Http.Headers;
+@using Microsoft.Extensions.Primitives;
+@using System.Linq;
+@using System.Net.Http:
+@using System.Reflection
+@using Newtonsoft.Json.Linq
+@using System.Diagnostics
+@inject IHttpClientFactory ClientFactory
+
+
+
+<h1>Call web API from a Blazor Server Razor component</h1>
+
+
+@if (getBranchesError)
+{
+    <p>Unable to get an answer from Proffix. Please try again later.</p>
+}
+else
+{
+    <br />
+    <p>Session-ID: @session</p>
+    <br />
+    <p>
+        Dokumentennummer: @meta1
+        <br />
+        Referenztext: @meta2
+    </p>
+
+    <div>
+        @*<ul>
+    @if (jContentList == null)
+    {
+    <p><em>Loading...</em></p>
+    }
+    else if (jContentList != null)
+    {
+    @foreach (var dictionary in jContentList)
+    {
+    <p>Dokuemntnummer: @dictionary.ElementAt(0).Value</p>
+    }
+    }
+    </ul>*@
+    </div>
+    <div>
+        @if (jContentList == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else if (jContentList != null)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Dokumentennummer</th>
+                        <th>Referenztext</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var dictionary in jContentList)
+                    {
+                        <tr>
+                            <td>@dictionary.ElementAt(0).Value</td>
+                            <td>@dictionary.ElementAt(1).Value</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+    </div>
+}
+
+@code {
+    private bool getBranchesError;
+    private bool shouldRender = true;
+    public string session;
+    public string meta1;
+    public string meta2;
+    public bool waitforme = false;
+    public List<Dictionary<string, string>> jContentList;
+
+
+    protected override bool ShouldRender() => shouldRender;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetSessionId();
+        await GetDocument();
+        await GetAllDocument();
+
+    }
+
+    public async Task GetSessionId()
+    {
+        // define Logindata for authentification
+        var login = new Login("Admin", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", new Datenbank("DEMODB"), new List<string> { "VOL" });
+
+        // make json
+        var json = JsonConvert.SerializeObject(login);
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+        // define url
+        var url = "https://dev.wato-soft.ch:44341/pxapi/v4/PRO/Login";
+        var client = new HttpClient();
+
+
+        HttpResponseMessage response = await client.PostAsync(url, data);
+
+        //var sessionId = GetSessionID(response);
+
+        HttpHeaders headers = response.Headers;
+
+        // Read session key header
+        if (headers.TryGetValues("PxSessionId", out var values))
+        {
+            // return session key
+            session = values.First();
+        }
+        else
+        {
+            getBranchesError = true;
+        }
+    }
+
+    public async Task GetDocument()
+    {
+        var url2 = "https://dev.wato-soft.ch:44341/pxapi/v4/AUF/Dokument/3";
+        var client = new HttpClient();
+        client.DefaultRequestHeaders.Add("PxSessionId", session);
+
+        HttpResponseMessage response2 = await client.GetAsync(url2);
+
+        HttpContent httpContent = response2.Content;
+
+        string jsonContent = httpContent.ReadAsStringAsync().Result;
+
+        JObject result = JObject.Parse(jsonContent);
+
+        var dokumentNr = result["DokumentNr"];
+        var referenzText = result["Referenztext"];
+
+
+        meta1 = dokumentNr.ToString();
+        meta2 = referenzText.ToString();
+    }
+
+    public async Task GetAllDocument()
+    {
+        var url3 = "https://dev.wato-soft.ch:44341/pxapi/v4/AUF/Dokument?fields=DokumentNr,Referenztext&limit=0";
+
+        var client = new HttpClient();
+        client.DefaultRequestHeaders.Add("PxSessionId", session);
+
+
+        HttpResponseMessage response2 = await client.GetAsync(url3);
+
+        HttpContent httpContent = response2.Content;
+
+
+        string jsonContent = httpContent.ReadAsStringAsync().Result;
+
+
+        //Parse Json-Array
+        JArray jArrayContent = JArray.Parse(jsonContent);
+
+        jContentList = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(jsonContent);
+        foreach (var dictionary in jContentList)
+        {
+            //Get Values           v--Index
+            var dokumentNr = dictionary.ElementAt(1).Value;
+            Console.Write(dokumentNr);
+        }
+
+        waitforme = true;
+    }
+}

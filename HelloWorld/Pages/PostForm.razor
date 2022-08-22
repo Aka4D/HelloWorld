@@ -14,6 +14,7 @@ else
     <br />
     <p>Session-ID: @session</p>
     <br />
+    @meta2
 }
 
 @code {
@@ -21,6 +22,7 @@ else
     private bool shouldRender = true;
     public string session;
     public string meta1;
+    public string meta2;
 
     protected override async Task OnInitializedAsync()
     {
@@ -53,6 +55,7 @@ else
         {
             // return session key
             session = values.First();
+            await PostDocument(session);
         }
         else
         {
@@ -60,16 +63,30 @@ else
         }
     }
 
-    public async Task PostDocument()
+    public async Task PostDocument(string session)
     {
+<<<<<<< Updated upstream
         var client = new HttpClient();
         client.DefaultRequestHeaders.Add("PxSessionId", session);
 
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         var dokument = new DokumentErstellen("25", new Adresse("23"), "Herr", DateTime.Now.ToString("yyyy-MM-dd"), new Dokumenttyp("OF"), new ESRNummer("1"), false,
+=======
+        var client = new HttpClient();
+        client.DefaultRequestHeaders.Add("PxSessionId", session);
+        //client.DefaultRequestHeaders.Add("Content-Type", "application/json");
+        client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
+
+
+        var dokument = new DokumentErstellen("0", new Adresse("23"), "Herr", DateTime.Now.ToString("yyyy-MM-dd"), new Dokumenttyp("OF"), new ESRNummer("1"), false,
+>>>>>>> Stashed changes
                        false, new Region("BE"), new Kondition("1"), 1.0, new Land("CH"), new Lieferadresse("25"), "Herr", new Lieferart("Post"), "hans.muster@proffix.net",
                        new LieferadressRegion("BE"), new LieferadressLand("CH"), "Muster", "Pieterlen", "2542", "Bielstrasse 30", "Hans", 80.2, "Stammkunde", "Zürich",
-                       "8000", 0.0, 0.0, 0.0, 0.0, DateTime.Now.ToString("yyyy-MM-dd"), new Sammelkonto("111"), 4.75, 0.0, 0.0, 0.0, 0.0, new Steuercode1("1"), false,
+                       "8000", 0.0, 0.0, 0.0, 0.0, DateTime.Now.ToString("yyyy-MM-dd"), new Sammelkonto("1100"), 4.75, 0.0, 0.0, 0.0, 0.0, new Steuercode1("1"), false,
                        false, false, false, false, false, false, false, false, false, 4.75, 0.0, 0.0, 0.0, 0.0, "MWSt 7.7% exkl.", 66.5, 0.0, 0.0, 0.0, 0.0, 65.5, 0.0,
+<<<<<<< Updated upstream
                        0.0, 0.0, 0.0, "Georgweg 22", 0.0, 0.0, 15.5, 15.5, 65.5, 0.0, 4.75, 4.75, 65.5, "Admin", new Vertreter("FV"), "Sandro", new List<string> { },
                        new List<string> { }, new Waehrung("CHF"), 0.0, 0.0, 0.0, 0.0, new Sprache("D"), new List<string>
                        {
@@ -84,9 +101,62 @@ else
 
         var url = "http://localhost:5000/pxapi/v4/AUF/Dokument?freieLieferadresse=1";
 
+<<<<<<< Updated upstream
 
         HttpResponseMessage response = await client.PostAsync(url, data);
         HttpHeaders headers = response.Headers;
         Console.Write("");
+=======
+=======
+                       0.0, 0.0, 0.0, "Georgweg 22", 0.0, 0.0, 15.5, 15.5, 65.5, 0.0, 4.75, 4.75, 65.5, "ADMIN", new Vertreter("FV"), "Sandro", new List<string> { },
+                       new List<string> { }, new Waehrung("CHF"), 0.0, 0.0, 0.0, 0.0, new Sprache("D"),
+
+                       new List<Position>
+                       {
+                            new Position("4984", "10", new Artikel("KI-SWA"), "Proffix Bidon", 0.0, new Lagereinheit("STK"), new Rechnungseinheit("STK"), 1.0, 1.0,
+                            new Ertragskonto(null), 0.0, 0.0, 0.0, false, 0.0, 6, 83.5, 10.0, 0.0, 10.0, 0.0, false, false, new List<string> {}, 0, 1, 
+                            "Preis ab Artikel", "Rabatt ab", 6.175, 6.175, 0.0, 0.0, 0, false, 0.0, new Steuercode(1), 0, 4.75475, 4.75475, new List<string>{ }, 
+                            0.0, 61.75, 66.5, 66.5, 0.0, 61.75, 0, new Vertreter("FV"), 422, false, false, "ADMIN", "ADMIN")
+                       },   "ADMIN", "ADMIN");
+
+
+        Position position = new Position("4984", "10", new Artikel("KI-SWA"), "Proffix Bidon", 0.0, new Lagereinheit("STK"), new Rechnungseinheit("STK"), 1.0, 1.0,
+                            new Ertragskonto(null), 0.0, 0.0, 0.0, false, 0.0, 6, 83.5, 10.0, 0.0, 10.0, 0.0, false, false, new List<string> { }, 0, 1,
+                            "Preis ab Artikel", "Rabatt ab", 6.175, 6.175, 0.0, 0.0, 0, false, 0.0, new Steuercode(1), 0, 4.75475, 4.75475, new List<string> { },
+                            0.0, 61.75, 66.5, 66.5, 0.0, 61.75, 0, new Vertreter("FV"), 422, false, false, "ADMIN", "ADMIN");
+
+        var json = JsonConvert.SerializeObject(dokument);
+        var data2 = new StringContent(json, Encoding.UTF8, "application/json");
+
+        var url = "https://dev.wato-soft.ch:44341/pxapi/v4/AUF/Dokument";
+
+
+        var request = new HttpRequestMessage(HttpMethod.Post, url)
+            {
+                // Set the json object to the request content
+                Content = data2
+            };
+
+        request.Headers.Add("PxSessionId", session);
+
+
+        meta2 = await data2.ReadAsStringAsync();
+
+
+        HttpResponseMessage response = await client.PostAsync(url, data2);
+        HttpHeaders headers = response.Headers;
+
+        //Fehlermeldung als Json auslesen
+        var test = response.Content.ReadAsStringAsync();
+        
+
+        Console.Write("");
+        Console.Write("");
+        Console.Write("");
+        Console.Write("");
+        Console.Write("");
+        Console.Write("");
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     }
 }

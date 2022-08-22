@@ -103,7 +103,7 @@
     {
         public string KontoNr { get; set; }
 
-        public Sammelkonto (string kontoNr)
+        public Sammelkonto(string kontoNr)
         {
             KontoNr = kontoNr;
         }
@@ -149,9 +149,173 @@
         }
     }
 
+    public class Position
+    {
+        public string DokumentpositionenNr { get; set; }
+        public string PositionsNR { get; set; }
+        public Artikel Artikel { get; set; }
+        public string Bezeichnung1 { get; set; }
+        public double? Dim2 { get; set; }
+        public Lagereinheit Lagereinheit { get; set; }
+        public Rechnungseinheit Rechnungseinheit { get; set; }
+        public double? EinkaufspreisFW { get; set; }
+        public double? EinkaufspreisSW { get; set; }
+        public Ertragskonto Ertragskonto { get; set; }
+        public double? Gebinde { get; set; }
+        public double? Gewicht { get; set; }
+        public double? Inhalt { get; set; }
+        public bool IstOption { get; set; }
+        public double? Dim1 { get; set; }
+        public int Lagerpreis { get; set; }
+        public double? Marge { get; set; }
+        public double? Menge { get; set; }
+        public double? MengeOptional { get; set; }
+        public double? MengeVerr { get; set; }
+        public double? MengeVerrOptional { get; set; }
+        public bool NichtAnzeigen { get; set; }
+        public bool Optional { get; set; }
+        public IList<string> Kundeninstallationen { get; set; }
+        public int ServiceauftragspositionNr { get; set; }
+        public int Positionstyp { get; set; }
+        public string Preisdefinition { get; set; }
+        public string PreisdefinitionZusatzartikel { get; set; }
+        public double? PreisFW { get; set; }
+        public double? PreisSW { get; set; }
+        public double? RabattProzent { get; set; }
+        public double? RabattFW { get; set; }
+        public int AutomatischRechnenVon { get; set; }
+        public bool Rekapitualtion { get; set; }
+        public double? RueckstandMenge { get; set; }
+        public Steuercode Steuercode { get; set; }
+        public int Leistungsverwaltungstyp { get; set; }
+        public double? SteuerFW { get; set; }
+        public double? SteuerSW { get; set; }
+        public IList<string> Subtotalbezeichnungen { get; set; }
+        public double? Dim3 { get; set; }
+        public double? TotalFW { get; set; }
+        public double? TotalInklusivFW { get; set; }
+        public double? TotalInklusivSW { get; set; }
+        public double? TotalOptional { get; set; }
+        public double? TotalSW { get; set; }
+        public int Verpackungen { get; set; }
+        public Vertreter Vertreter { get; set; }
+        public int Zusatzartikelreferenz { get; set; }
+        public bool Rechnen { get; set; }
+        public bool GesamtrabattVerbuchungAufteilen { get; set; }
+        public string ErstelltVon { get; set; }
+        public string GeaendertVon { get; set; }
+
+        public Position(string dokumentpositionenNr, string positionsNR, Artikel artikel, string bezeichnung1, double? dim2, Lagereinheit lagereinheit, Rechnungseinheit rechnungseinheit, double einkaufspreisFW, double einkaufspreisSW, Ertragskonto ertragskonto, double? gebinde, double? gewicht, double? inhalt, bool istOption, double? dim1, int lagerpreis, double? marge, double? menge, double? mengeOptional, double? mengeVerr, double? mengeVerrOptional, bool nichtAnzeigen, bool optional, IList<string> kundeninstallationen, int serviceauftragspositionNr, int positionstyp, string preisdefinition, string preisdefinitionZusatzartikel, double? preisFW, double? preisSW, double? rabattProzent, double? rabattFW, int automatischRechnenVon, bool rekapitualtion, double? rueckstandMenge, Steuercode steuercode, int leistungsverwaltungstyp, double? steuerFW, double? steuerSW, IList<string> subtotalbezeichnungen, double? dim3, double? totalFW, double? totalInklusivFW, double? totalInklusivSW, double? totalOptional, double? totalSW, int verpackungen, Vertreter vertreter, int zusatzartikelreferenz, bool rechnen, bool gesamtrabattVerbuchungAufteilen, string erstelltVon, string geaendertVon)
+        {
+            DokumentpositionenNr = dokumentpositionenNr;
+            PositionsNR = positionsNR;
+            Artikel = artikel;
+            Bezeichnung1 = bezeichnung1;
+            Dim2 = dim2;
+            Lagereinheit = lagereinheit;
+            Rechnungseinheit = rechnungseinheit;
+            EinkaufspreisFW = einkaufspreisFW;
+            EinkaufspreisSW = einkaufspreisSW;
+            Ertragskonto = ertragskonto;
+            Gebinde = gebinde;
+            Gewicht = gewicht;
+            Inhalt = inhalt;
+            IstOption = istOption;
+            Dim1 = dim1;
+            Lagerpreis = lagerpreis;
+            Marge = marge;
+            Menge = menge;
+            MengeOptional = mengeOptional;
+            MengeVerr = mengeVerr;
+            MengeVerrOptional = mengeVerrOptional;
+            NichtAnzeigen = nichtAnzeigen;
+            Optional = optional;
+            Kundeninstallationen = kundeninstallationen;
+            ServiceauftragspositionNr = serviceauftragspositionNr;
+            Positionstyp = positionstyp;
+            Preisdefinition = preisdefinition;
+            PreisdefinitionZusatzartikel = preisdefinitionZusatzartikel;
+            PreisFW = preisFW;
+            PreisSW = preisSW;
+            RabattProzent = rabattProzent;
+            RabattFW = rabattFW;
+            AutomatischRechnenVon = automatischRechnenVon;
+            Rekapitualtion = rekapitualtion;
+            RueckstandMenge = rueckstandMenge;
+            Steuercode = steuercode;
+            Leistungsverwaltungstyp = leistungsverwaltungstyp;
+            SteuerFW = steuerFW;
+            SteuerSW = steuerSW;
+            Subtotalbezeichnungen = subtotalbezeichnungen;
+            Dim3 = dim3;
+            TotalFW = totalFW;
+            TotalInklusivFW = totalInklusivFW;
+            TotalInklusivSW = totalInklusivSW;
+            TotalOptional = totalOptional;
+            TotalSW = totalSW;
+            Verpackungen = verpackungen;
+            Vertreter = vertreter;
+            Zusatzartikelreferenz = zusatzartikelreferenz;
+            Rechnen = rechnen;
+            GesamtrabattVerbuchungAufteilen = gesamtrabattVerbuchungAufteilen;
+            ErstelltVon = erstelltVon;
+            GeaendertVon = geaendertVon;
+        }
+    }
+
+    public class Artikel
+    {
+        public string ArtikelNr { get; set; }
+
+        public Artikel(string artikelNr)
+        {
+            ArtikelNr = artikelNr;
+        }
+    }
+
+    public class Lagereinheit
+    {
+        public string EinheitNr { get; set; }
+
+        public Lagereinheit(string einheitNr)
+        {
+            EinheitNr = einheitNr;
+        }
+    }
+
+    public class Rechnungseinheit
+    {
+        public string EinheitNr { get; set; }
+
+        public Rechnungseinheit(string einheitNr)
+        {
+            EinheitNr = einheitNr;
+        }
+    }
+
+    public class Ertragskonto
+    {
+        public string KontoN { get; set; } = null;
+
+        public Ertragskonto(string KontoNr)
+        {
+            KontoN = KontoNr;
+        }
+    }
+
+    public class Steuercode
+    {
+        public int SteuercodeNr { get; set; }
+
+        public Steuercode(int SteuercodeNr)
+        {
+            int Steuercode = SteuercodeNr;
+        }
+    }
+
     public class DokumentErstellen
     {
-        public DokumentErstellen(string dokumentNr, Adresse adresse, string anrede, string datum, Dokumenttyp dokumenttyp, ESRNummer eSRNummer, bool? gedruckt, bool? gesperrt, Region region, Kondition kondition, double? kurs, Land land, Lieferadresse lieferadresse, string lieferadresseAnrede, Lieferart lieferart, string lieferadressEMail, LieferadressRegion lieferadressRegion, LieferadressLand lieferadressLand, string lieferadressName, string lieferadressOrt, string lieferadressPLZ, string lieferadressStrasse, string lieferadressVorname, double? marge, string name, string ort, string pLZ, double? portoFW, double? portoMWStFW, double? portoMWStSW, double? portoSW, string belegdatum, Sammelkonto sammelkonto, double? steuerFW1, double? steuerFW2, double? steuerFW3, double? steuerFW4, double? steuerFW5, Steuercode1 steuercode1, bool? steuerInklusiv1, bool? steuerInklusiv2, bool? steuerInklusiv3, bool? steuerInklusiv4, bool? steuerInklusiv5, bool? steuerMargen1, bool? steuerMargen2, bool? steuerMargen3, bool? steuerMargen4, bool? steuerMargen5, double? steuerSW1, double? steuerSW2, double? steuerSW3, double? steuerSW4, double? steuerSW5, string steuertext1, double? steuertotalFW1, double? steuertotalFW2, double? steuertotalFW3, double? steuertotalFW4, double? steuertotalFW5, double? steuertotalSW1, double? steuertotalSW2, double? steuertotalSW3, double? steuertotalSW4, double? steuertotalSW5, string strasse, double? subtotaldifferenzFW, double? subtotaldifferenzSW, double? totalEinkaufspreisFW, double? totalEinkaufspreisSW, double? totalFW, double? totalgewicht, double? totalsteuerFW, double? totalsteuerSW, double? totalSW, string unserZeichen, Vertreter vertreter, string vorname, IList<string> zahlungen, IList<string> vorauszahlung, Waehrung waehrung, double? zuschlagFW, double? zuschlagMWStFW, double? zuschlagMWStSW, double? zuschlagSW, Sprache sprache, IList<string> positionen, DateTime erstelltAm, string erstelltVon, DateTime geaendertAm, string geaendertVon, IList<string> zusatzfelder)
+        public DokumentErstellen(string dokumentNr, Adresse adresse, string anrede, string datum, Dokumenttyp dokumenttyp, ESRNummer eSRNummer, bool? gedruckt, bool? gesperrt, Region region, Kondition kondition, double? kurs, Land land, Lieferadresse lieferadresse, string lieferadresseAnrede, Lieferart lieferart, string lieferadressEMail, LieferadressRegion lieferadressRegion, LieferadressLand lieferadressLand, string lieferadressName, string lieferadressOrt, string lieferadressPLZ, string lieferadressStrasse, string lieferadressVorname, double? marge, string name, string ort, string pLZ, double? portoFW, double? portoMWStFW, double? portoMWStSW, double? portoSW, string belegdatum, Sammelkonto sammelkonto, double? steuerFW1, double? steuerFW2, double? steuerFW3, double? steuerFW4, double? steuerFW5, Steuercode1 steuercode1, bool? steuerInklusiv1, bool? steuerInklusiv2, bool? steuerInklusiv3, bool? steuerInklusiv4, bool? steuerInklusiv5, bool? steuerMargen1, bool? steuerMargen2, bool? steuerMargen3, bool? steuerMargen4, bool? steuerMargen5, double? steuerSW1, double? steuerSW2, double? steuerSW3, double? steuerSW4, double? steuerSW5, string steuertext1, double? steuertotalFW1, double? steuertotalFW2, double? steuertotalFW3, double? steuertotalFW4, double? steuertotalFW5, double? steuertotalSW1, double? steuertotalSW2, double? steuertotalSW3, double? steuertotalSW4, double? steuertotalSW5, string strasse, double? subtotaldifferenzFW, double? subtotaldifferenzSW, double? totalEinkaufspreisFW, double? totalEinkaufspreisSW, double? totalFW, double? totalgewicht, double? totalsteuerFW, double? totalsteuerSW, double? totalSW, string unserZeichen, Vertreter vertreter, string vorname, IList<string> zahlungen, IList<string> vorauszahlung, Waehrung waehrung, double? zuschlagFW, double? zuschlagMWStFW, double? zuschlagMWStSW, double? zuschlagSW, Sprache sprache, IList<Position> positionen, string erstelltVon, string geaendertVon)
         {
             DokumentNr = dokumentNr;
             Adresse = adresse;
@@ -240,11 +404,8 @@
             ZuschlagSW = zuschlagSW;
             Sprache = sprache;
             Positionen = positionen;
-            ErstelltAm = erstelltAm;
             ErstelltVon = erstelltVon;
-            GeaendertAm = geaendertAm;
             GeaendertVon = geaendertVon;
-            Zusatzfelder = zusatzfelder;
         }
 
         public string DokumentNr { get; set; }
@@ -395,16 +556,10 @@
 
         public Sprache Sprache { get; set; }
 
-        public IList<string> Positionen { get; set; }
-
-        public DateTime ErstelltAm { get; set; } = DateTime.Now;
+        public IList<Position> Positionen { get; set; }
 
         public string ErstelltVon { get; set; }
 
-        public DateTime GeaendertAm { get; set; } = DateTime.Now;
-
         public string GeaendertVon { get; set; }
-
-        public IList<string> Zusatzfelder { get; set; }
     }
 }

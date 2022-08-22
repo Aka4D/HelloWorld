@@ -2,8 +2,14 @@ using HelloWorld.Data;
 using HelloWorld.Model;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using System.Runtime.CompilerServices;
+using HelloWorld;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var configuration = builder.Configuration;
+
+var localization = new Localization();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -12,6 +18,8 @@ builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddScoped<CounterState>();
 
 builder.Services.AddHttpClient(); //Required for REST API
+
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources"); //Required for Localisation
 
 var app = builder.Build();
 
@@ -27,7 +35,14 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
+app.UseRequestLocalization(localization.GetLocalizationOptions(configuration));
+
 app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");

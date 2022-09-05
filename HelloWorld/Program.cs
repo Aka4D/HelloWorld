@@ -35,13 +35,13 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
-app.UseRequestLocalization(localization.GetLocalizationOptions(configuration));
+app.UseRequestLocalization(localization.GetLocalizationOptions(configuration)); //Required for Localisation (position in this file is important)
 
 app.UseRouting();
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllers();
+    endpoints.MapControllers(); //for MVC
 });
 
 app.MapBlazorHub();
